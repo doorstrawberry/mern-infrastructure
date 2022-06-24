@@ -1,18 +1,20 @@
 import './App.css';
 import { useState } from "react"
-import AuthPage from "../../components/AuthPage"
-import NewOrderPage from "../../components/NewOrderPage"
-import OrderHistoryPage from "../../components/OrderHistoryPage"
+import AuthPage from "../AuthPage/AuthPage"
+import NewOrderPage from "../NewOrderPage/NewOrderPage"
+import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage"
 
 function App() {
   const [user, setUser] = useState(null)
 
   return (
     <main className="App">
-      <h1>App</h1>
-      <AuthPage />
-      <NewOrderPage />
-      <OrderHistoryPage />
+      { user ? 
+        <NewOrderPage /> 
+        : 
+        <AuthPage />
+      }
+      {/* <OrderHistoryPage /> */}
     </main>
   );
 }
