@@ -8,7 +8,7 @@ import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage"
 import NavBar from "../../components/NavBar"
 
 function App() {
-  const [user, setUser] = useState(true)
+  const [user, setUser] = useState(null)
 
   return (
     <main className="App">
