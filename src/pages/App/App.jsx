@@ -6,15 +6,16 @@ import AuthPage from "../AuthPage/AuthPage"
 import NewOrderPage from "../NewOrderPage/NewOrderPage"
 import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage"
 import NavBar from "../../components/NavBar"
+import {getUser} from "../../utilities/users-service"
 
 function App() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(getUser())
 
   return (
     <main className="App">
       {user ?
         <>
-          <NavBar />
+          <NavBar user={user}/>
           <Routes>
             <Route path="/orders/new" element={<NewOrderPage />} />
             <Route path="/orders" element={<OrderHistoryPage />} />
