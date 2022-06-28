@@ -10,9 +10,9 @@ export async function signUp(userData) {
   const token = await usersAPI.signUp(userData);
   // Persist the token (saving it to local storage so we don't lose it upon a page refresh)
   localStorage.setItem('token', token) // saves our token to our local storage
-
   // local storage only stores and retrieves strings
   // JSON.parse() is responsible for converting a string to whatever data type you desire
+  return getUser()
 }
 
 export function getToken() {
