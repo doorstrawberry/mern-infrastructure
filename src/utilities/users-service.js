@@ -15,7 +15,7 @@ export async function signUp(userData) {
   return getUser()
 }
 
-export async function login(credentials){
+export async function login(credentials) {
   const token = await usersAPI.login(credentials)
   localStorage.setItem('token', token)
   return getUser()
@@ -32,7 +32,7 @@ export function getToken() {
     const payload = JSON.parse(atob(token.split('.')[1]))
     if (payload.exp < Date.now() / 1000) {
       // remove it from local storage
-      localStorage.removeItem('token') 
+      localStorage.removeItem('token')
       return null
     }
     // otherwise send the token
@@ -42,7 +42,7 @@ export function getToken() {
   }
 }
 
-export function getUser(){
+export function getUser() {
   const token = getToken()
   if (token) {
     return JSON.parse(atob(token.split('.')[1])).user
@@ -54,4 +54,12 @@ export function getUser(){
 
 export function logOut() {
   localStorage.removeItem('token');
+}
+
+export function checkToken() {
+  // Just so that you don't forget how to use .then
+  return usersAPI.checkToken()
+    // checkToken returns a string, but let's 
+    // make it a Date object for more flexibility
+    .then(dateStr => new Date(dateStr));
 }
