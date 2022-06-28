@@ -45,3 +45,7 @@ export function getUser(){
     return null
   }
 }
+
+export function logOut() {
+  localStorage.removeItem('token');
+}
