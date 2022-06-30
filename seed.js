@@ -4,6 +4,7 @@ require('./config/database');
 const Category = require('./models/category');
 const Item = require('./models/item');
 
+// IIFE - Immediately Invoked Function Expression
 (async function() {
 
   await Category.deleteMany({});
@@ -48,3 +49,5 @@ const Item = require('./models/item');
   process.exit();
 
 })();
+
+

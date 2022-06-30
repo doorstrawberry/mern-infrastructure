@@ -1,7 +1,7 @@
-// models/item.js
-
 const mongoose = require('mongoose');
-// Ensure the Category model is processed by Mongoose (for populating Menu Item queries)
+
+// Ensure that the Category model is loaded by Mongoose 
+// so that it can be used to populate the items
 require('./category');
 const itemSchema = require('./itemSchema');
 

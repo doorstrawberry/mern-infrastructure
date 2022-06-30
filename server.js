@@ -1,26 +1,21 @@
-// web application framework for node js
-const express = require('express')
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
 
-// allows to use the local path on wherever the application lives
-const path = require('path')
-
-// allow you to make an icon on your tab
-const favicon = require('serve-favicon')
-const logger = require('morgan')
-
-// Always require and configure near the top 
+// Always require near the top
 require('dotenv').config();
+// Connect to the server
+// Make sure that dotenv is already required
+require('./config/database');
 
-// Connect to the database
-require('./config/database.js');
-
-const app = express()
+const app = express();
 
 app.use(logger('dev'));
+// body parser middleware - adds properties to req.body
 app.use(express.json());
-
-// Configure both serve-favicon & static middleware
-// to serve from the production 'build' folder
+// Configure both serve-favicon & static
+// middleware to server from the 'build' folder
 app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
 
@@ -34,17 +29,20 @@ app.use('/api/users', require('./routes/api/users'));
 // Protect the api routes below from anonymous users
 const ensureLoggedIn = require('./config/ensureLoggedIn');
 app.use('/api/items', ensureLoggedIn, require('./routes/api/items'));
+app.use('/api/orders', ensureLoggedIn, require('./routes/api/orders'));
 
-// The following "catch all" route (note the *) is necessary
-// to return the index.html on all non-AJAX requests
-app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// The following "catch all" route (note the *) 
+// is necessary to return the index.html on ALL
+// non-AJAX requests
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-// Configure to use port 3001 instead of 3000 during
-// development to avoid collision with React's dev server
+
+// Configure express app to listen on port 3001
+// to avoid conflicting with the react server
 const port = process.env.PORT || 3001;
 
-app.listen(port, function () {
-    console.log(`Express app running on port ${port}`)
+app.listen(port, function() {
+  console.log(`Express app running on port ${port}`);
 });
